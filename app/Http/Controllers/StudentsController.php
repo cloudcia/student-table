@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use Illuminate\Http\Request;
+use App\Models\Grade;
+use Illuminate\Support\Facades\Session;
 
 class StudentsController extends Controller
 {
@@ -18,15 +20,16 @@ class StudentsController extends Controller
     public function show($student)
     {
         return view('student.detail', [
-            "title" => "detail-student",
-            "student" => Student::find($student)
+            "title" => "Student Details",
+            "students" => Student::find($student)
         ]);
     }
 
     public function create()
     {
         return view('student.create', [
-            'title' => 'Create Student',
+            'title' => 'Add Student',
+            'grades' => Grade::all(),
         ]);
     }
 
@@ -36,14 +39,15 @@ class StudentsController extends Controller
             'nis' => 'required|string|max:255',
             'nama' => 'required|string|max:255',
             'tanggal_lahir' => 'required|date',
-            'kelas' => 'required|string|max:255',
+            'grade_id' => 'required',
             'alamat' => 'required|string',
         ]);
 
         $student = new Student($validatedData);
         $student->save();
 
-        return redirect()->route('students.index')->with('success', 'Student created successfully');
+        Session::flash('success', 'Student created successfully');
+        return redirect('/students/all');
     }
 
     public function destroy($student)
@@ -51,33 +55,42 @@ class StudentsController extends Controller
         $student = Student::find($student);
         $student->delete();
 
-        return redirect()->route('students.index')->with('success', 'Student deleted successfully');
+        Session::flash('success', 'Student deleted successfully');
+        return redirect('/students/all');
     }
 
-    public function edit($student)
+    public function edit(Student $student)
     {
-        $student = Student::find($student);
         return view('student.edit', [
-            'title' => 'Edit Student',
-            'student' => $student,
+            "title" => "Edit Student Data",
+            "student" => $student,
+            "grades" => Grade::all()
         ]);
     }
+
 
     public function update(Request $request, $student)
     {
         $student = Student::find($student);
-
+    
         $validatedData = $request->validate([
             'nis' => 'required|string|max:255',
             'nama' => 'required|string|max:255',
             'tanggal_lahir' => 'required|date',
-            'kelas' => 'required|string|max:255',
+            'grade_id' => 'required|exists:grades,id',
             'alamat' => 'required|string',
         ]);
-
-        $student->update($validatedData);
-
-        return redirect()->route('students.index')->with('success', 'Student updated successfully');
+    
+        Student::where('id', $student->id)->update([
+            "nis" => $request->nis,
+            "nama" => $request->nama,
+            "tanggal_lahir" => $request->tanggal_lahir,
+            "grade_id" => $request->grade_id,
+            "alamat" => $request->alamat
+        ]);
+    
+        Session::flash('success', 'Student updated successfully');
+        return redirect()->route('students.index'); 
     }
-
+    
 }

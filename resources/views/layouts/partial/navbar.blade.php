@@ -5,17 +5,23 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
+      <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link " aria-current="page" href="/home">Home</a>
+          <a class="nav-link" aria-current="page" href="/home">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="/about">About</a>
+          <a class="nav-link" href="/about">About</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="/student/all">Student</a>
+          <a class="nav-link" href="/students/all">Student</a>
         </li>
       </ul>
     </div>
+
+    <ul class="navbar-nav ml-auto login-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/login">Login</a>
+        </li>
+      </ul>
   </div>
 </nav>

@@ -10,7 +10,7 @@
             </div>
         @endif
 
-        <form method="post" action="{{ route('students.update', $student->id) }}">
+        <form action="{{ route('students.update', $student->id) }}" method="post">
             @csrf
             @method('PUT')
 
@@ -31,7 +31,13 @@
 
             <div class="mb-3">
                 <label for="kelas" class="form-label">Kelas</label>
-                <input type="text" class="form-control" id="kelas" name="kelas" value="{{ $student->kelas }}" required>
+                <select class="form-select" name="grade_id" id="kelas"> {{-- Fixed the name attribute --}}
+                    @foreach ($grades as $grade)
+                        <option value="{{ $grade->id }}" {{ $grade->id == $student->grade_id ? 'selected' : '' }}>
+                            {{ $grade->kelas }}
+                        </option>
+                    @endforeach
+                </select> {{-- Closing select tag added --}}
             </div>
 
             <div class="mb-3">

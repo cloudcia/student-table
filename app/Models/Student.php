@@ -9,11 +9,12 @@ class Student extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'nis',
-        'nama',
-        'tanggal_lahir',
-        'kelas',
-        'alamat',
-    ];
+    protected $table = 'students';
+
+    protected $fillable = ['nis', 'nama', 'tanggal_lahir', 'grade_id', 'alamat'];
+
+    public function grades()
+    {
+        return $this->belongsTo(\App\Models\Grade::class, 'grade_id');
+    }
 }

@@ -2,11 +2,11 @@
 
 @section('content')
     <div class="container">
-    @if (session()->has('success'))
-    <div class="alert alert-success" role="alert">
-    {{ session('success') }}
-    </div>
-    @endif
+        @if (session()->has('success'))
+            <div class="alert alert-success" role="alert">
+                {{ session('success') }}
+            </div>
+        @endif
         <h1>{{ $title }}</h1>
 
         <a href="{{ route('students.create') }}" class="btn btn-primary mb-3">Add New Data</a>
@@ -30,12 +30,12 @@
                         <td>{{ $student->nis }}</td>
                         <td>{{ $student->nama }}</td>
                         <td>{{ $student->tanggal_lahir }}</td>
-                        <td>{{ $student->kelas }}</td>
+                        <td>{{ optional($student->grades)->kelas }}</td>
                         <td>{{ $student->alamat }}</td>
                         <td>
-                            <a href="{{ route('students.show', $student->id) }}" class="btn btn-info">Detail</a>
+                            <a href="/students/detail/{{$student->id }}" class="btn btn-info">Detail</a>
                             <a href="{{ route('students.edit', $student->id) }}" class="btn btn-warning">Edit</a>
-                            <form action="{{ route('students.destroy', $student->id) }}" method="post" class="d-inline">
+                            <form action="/students/delete/{{$student->id}}" method="post" class="d-inline">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
