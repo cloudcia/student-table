@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('container')
+@section('content')
     <!-- tempat content -->
     <h1>Ini adalah halaman home</h1>
 @endsection

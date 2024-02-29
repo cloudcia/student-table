@@ -1,7 +1,7 @@
-@extends('layouts.main')
+@extends('dashboard.layout.main')
 
 @section('content')
-    <h1>Student Details</h1>
+<h1>Student Details</h1>
     <br/>
     <div class="card" style="width: 18rem;">
         <div class="card-header">
@@ -15,5 +15,5 @@
         </ul>
     </div>
     <br>
-    <a href="/students" class="btn btn-primary">Back</a>
+    <a href="/dashboard/students" class="btn btn-primary">Back</a>
 @endsection

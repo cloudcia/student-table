@@ -22,7 +22,7 @@ class LoginController extends Controller
         $user = \App\Models\User::where('email', $request->email)->first();
 
         if (!$user) {
-            return redirect()->to('register')->with('error', 'Email not registered. Please register first.');
+            return redirect()->route('register')->with('error', 'Email not registered. Please register first.');
         }
 
         $credentials = $request->only('email', 'password');
@@ -31,6 +31,19 @@ class LoginController extends Controller
             return redirect()->route('dashboard');
         }
 
-        return redirect()->route('login')->with('error', 'Incorrect password. Please try again.');
+        throw ValidationException::withMessages([
+            'email' => ['Incorrect password. Please try again.'],
+        ])->redirectTo(route('login'));
+    }
+
+    public function logout(Request $request) {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/');
+    
     }
 }

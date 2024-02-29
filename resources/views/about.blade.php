@@ -1,6 +1,6 @@
 @extends ('layouts.main')
 
-@section('container')
+@section('content')
     <table>
         <tr>
             <td>Nama</td>

@@ -5,7 +5,7 @@
         <h1>{{ $title }}</h1>
 
         <!-- Create Form -->
-        <form method="post" action="{{ route('students.store') }}">
+        <form method="post" action="{{ route('dashboard.students.store') }}">
             @csrf
             <div class="mb-3">
                 <label for="nis" class="form-label">NIS</label>
@@ -23,7 +23,7 @@
                 <label for="kelas" class="form-label">Kelas</label>
                 <select class="form-select" name="grade_id" id="kelas">
                     @foreach ($grades as $grade)
-                        <option name="grade_id" value="{{ $grade->id }}">{{ $grade->kelas }}</option>
+                        <option name="grade_id" value="{{ $grade->id }}">{{ $grade->nama }}</option>
                     @endforeach
                 </select>
             </div>

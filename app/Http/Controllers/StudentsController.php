@@ -11,9 +11,12 @@ class StudentsController extends Controller
 {
     public function index()
     {
+        $students = Student::all();
+
         return view('student.all', [
             "title" => "Students",
-            "students" => Student::all()
+            "students" => $students,
+            'grades' => Grade::all()
         ]);
     }
 
@@ -47,16 +50,17 @@ class StudentsController extends Controller
         $student->save();
 
         Session::flash('success', 'Student created successfully');
-        return redirect('/students/all');
+        return redirect('/dashboard/students');
     }
 
     public function destroy($student)
-    {
-        $student = Student::find($student);
-        $student->delete();
-
-        Session::flash('success', 'Student deleted successfully');
-        return redirect('/students/all');
+    { 
+        $result = Student::destroy($student);   
+        if($result) {
+            return redirect('/dashboard/students')->with('success', 'Student data has been deleted!');
+        } else {
+            return redirect('/dashboard/students/all')->with('error', 'Student data failed to delete!');
+        }
     }
 
     public function edit(Student $student)
@@ -90,7 +94,7 @@ class StudentsController extends Controller
         ]);
     
         Session::flash('success', 'Student updated successfully');
-        return redirect()->route('students.index'); 
+        return redirect('/dashboard/students'); 
     }
     
 }
