@@ -11,12 +11,12 @@ class StudentsController extends Controller
 {
     public function index()
     {
-        $students = Student::all();
+        $students = Student::latest()->paginate(10);
 
         return view('student.all', [
             "title" => "Students",
             "students" => $students,
-            'grades' => Grade::all()
+            'grade' => Grade::all()
         ]);
     }
 

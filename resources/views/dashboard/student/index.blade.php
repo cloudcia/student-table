@@ -49,7 +49,7 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $student->nis }}</td>
                             <td>{{ $student->nama }}</td>
-                            <td>{{ optional($student->grades)->nama }}</td>
+                            <td>{{ optional($student->grade)->nama }}</td>
                             <td>
                                 <a href="{{ route('dashboard.students.show', $student->id) }}" class="btn btn-info">Detail</a>
                                 <a href="{{ route('dashboard.students.edit', $student->id) }}" class="btn btn-warning">Edit</a>

@@ -10,7 +10,7 @@
         <ul class="list-group list-group-flush">
             <li class="list-group-item">{{$students->nama}}</li>
             <li class="list-group-item">{{$students->tanggal_lahir}}</li>
-            <li class="list-group-item">{{ optional($students->grades)->nama }}</li>
+            <li class="list-group-item">{{ optional($students->grade)->nama }}</li>
             <li class="list-group-item">{{$students->alamat}}</li>
         </ul>
     </div>

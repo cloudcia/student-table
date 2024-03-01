@@ -9,13 +9,6 @@ class Grade extends Model
 {
     use HasFactory;
 
-    protected $table = 'grades';
+    // protected $table = 'grades';
     protected $fillable = ['nama'];
-
-    public function scopeFilter($query, array $filters){
-        if(isset($filters['search']) ? $filters['search'] : false){
-          return  $query->where('nama', 'like', '%' . request('search') . '%');
-        }
-    }
-
 }

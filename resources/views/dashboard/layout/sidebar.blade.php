@@ -7,29 +7,19 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script>
-        jQuery(document).ready(function($) {
-            $("#menu-toggle").click(function(e) {
-                e.preventDefault();
-                $("#wrapper").toggleClass("toggled");
-            });
-        })
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <style>
-        *{
-            margin :0;
-            padding : 0;
-            box-sizing  : border-box;
-        }
-        
 
         #sidebar-wrapper {
             margin-left: -15rem;
-            height : 98vh;
+            height: 98vh;
             -webkit-transition: margin .25s ease-out;
             -moz-transition: margin .25s ease-out;
             -o-transition: margin .25s ease-out;
             transition: margin .25s ease-out;
+            display: flex;
+            flex-direction: column;
         }
 
         #sidebar-wrapper .sidebar-heading {
@@ -39,9 +29,9 @@
 
         #sidebar-wrapper .list-group {
             width: 15rem;
+            flex-grow: 1;
             display: flex;
             flex-direction: column;
-            height: 100%;
         }
 
         #page-content-wrapper {
@@ -68,59 +58,36 @@
         }
 
         #logout-menu {
-            color: #dc3545; /* Red text color */
+            color: #dc3545;
             text-align: center;
             padding: 10px;
             cursor: pointer;
+            width: 100%;
         }
 
         #logout-menu i {
             margin-right: 5px;
+        }
+
+        #logout-button {
+            width: 100%;
         }
     </style>
 </head>
 <body>
     <div class="d-flex position-absolute" id="wrapper">
         <div class="bg-light border-right" id="sidebar-wrapper">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Hi, {{ auth()->user()->name }}
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li>
-                                <form action="/logout" method="post">
-                                    @csrf
-                                    <button type="button" onclick="confirmLogout()" class="dropdown-item">Logout</button>
-                                </form>
-                            </li>
-                        </ul>
             <div class="list-group list-group-flush">
                 <a href="/dashboard/students" class="list-group-item list-group-item-action bg-light">Student</a>
                 <a href="/dashboard/grade" class="list-group-item list-group-item-action bg-light">Grade</a>
             </div>
-            
+            <div id="logout-menu" class="mt-auto">
+                <form action="/logout" method="post">
+                    @csrf
+                    <button type="submit" class="btn btn-danger btn-block" id="logout-button" onclick="return confirm('Are you sure you want to logout?')">Logout</button>
+                </form>
+            </div>
         </div>
     </div>
-
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 </body>
-
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-    function confirmLogout() {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: 'You will be logged out!',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, logout!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                document.querySelector('form[action="/logout"]').submit();
-            }
-        });
-    }
-</script>
 </html>
