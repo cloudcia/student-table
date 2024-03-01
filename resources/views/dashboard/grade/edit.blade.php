@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('dashboard.layouts.main')
 
 @section('content')
     <a href="/dashboard/grade" type="button" class="btn btn-primary">

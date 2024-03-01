@@ -16,6 +16,23 @@ class DashboardController extends Controller
         ]);
     }
 
+    public function create()
+    {
+        return view('dashboard.student.create', [
+            'title' => 'Add Student',
+            'grades' => Grade::all(),
+        ]);
+    }
+
+    public function edit(Student $student)
+    {
+        return view('dashboard.student.edit', [
+            "title" => "Edit Student Data",
+            "student" => $student,
+            "grades" => Grade::all()
+        ]);
+    }
+
     public function view() {
         $students = Student::query();
 
